@@ -57,17 +57,15 @@ gcloud config set compute/zone europe-west4-a
 Antwoord zal zijn dat de compute/zone zijn geupdate, klik Next
 
 ## Configuratie management
-Je maakt gebruik van de Google eigen tooling **Deployment Manager** om de servers in deze oefening aan te zetten.
+**Deployment Manager**  werkt op basis van configuratie bestanden en optioneel templates.
 De tool zet configuratie bestanden in om de juiste instellingen een omgeving op te zetten, met daarin bijvoorbeeld de virtuele machine.
-Om ervoor te zorgen dat je niet allemaal dezelfde omgeving neerzet, is er een veld dat je moet aanpassen.
-
 Klik op de instructie om het bestand te openen in de Editor:
 
 <walkthrough-editor-open-file filePath="cloudshell-tutorials-summerschool/provisioning/vm.yaml" text="Open configuratie bestand">
 </walkthrough-editor-open-file>
 
 Het bestand opent zich in de editor. Allereerst een waarschuwing vooraf, **PAS NOG NIETS AAN**, 
-aangezien het bestandsformaat erg gevoelig is voor spatie- en tab-indeling.
+aangezien het bestandsformaat erg gevoelig is voor spatie- en tab-indeling. Kijk eerst even naar het bestand.
 
 ### Structuur van het config bestanden
 Het deployment bestand is ingedeeld volgens de sturctuur, welke je terug ziet in het geopende document: 
@@ -78,7 +76,6 @@ netwerk componenten
 - **Name**: verplicht voor elke resource, een unieke naam
 - **Properties**: de eigenschappen van de te deployen resources
 
-## Configuratie Invullen
 De geopende configuratie beschrijft in dit geval dat we een virtuele machine instantie met de volgende eigenschappen willen laten starten:
 
 + Machine type: `f1-micro`
@@ -87,15 +84,18 @@ De geopende configuratie beschrijft in dit geval dat we een virtuele machine ins
 + Root persistent disk: `boot`
 + Een random gekozen intern en extern IP address
 
-In het bestand vervang je de volgende placeholder inclusief de rechte haken:
+Klik op Next om verder te gaan 
 
-* `[MY_NAME]` met je **voornaam** LET OP ALLEEN KLEINE LETTERS!
+## Configuratie Aanpassen
+Om ervoor te zorgen dat je niet dezelfde omgeving neerzet als je mede-cursisten, is er één veld dat je moet aanpassen.
+In het bestand vervang je `[MY_NAME]` inclusief de rechte haken door je voornaam, **LET OP ALLEEN KLEINE LETTERS!**
 
 ```
 [MY_NAME] wordt dus markus
 ```
 
 Om de verandering op te slaan klik je op het **File** menu, klik **Save**.
+Klik op Next om verder te gaan.
 
 ## Provisioning
 Om op basis van de configuratie een deployment uit te voeren type je het volgende in de cloudshell.
@@ -103,6 +103,8 @@ Eerst moet je zorgen dat je op de juiste plek staat in de folder structuur:
 ```bash
 cd ~/cloudshell-tutorials-summerschool/provisioning
 ```
+**ENTER** 
+
 Hierna voer je de deployment uit, vervang hierbij `[MY_NAME]` door je eigen voornaam, alleen kleine letters.
 
 ```bash
@@ -124,15 +126,16 @@ gcloud deployment-manager deployments describe [MY_NAME]
 ```
 
 ## De-Provisioning
-Geef bij de docent aan dat je klaar bent dan wachten we op de rest van de groep, voer af- en toe het List commando uit om te zien wie er nog meer 
-klaar is. **Tip** toets hiervoor pijl omhoog tot je het commando weer ziet en druk dan Enter.
+Geef bij de docent aan dat je klaar bent dan wachten we op de rest van de groep, voer af- en toe het List commando uit om te zien wie er nog meer klaar is. **Tip** toets hiervoor pijl omhoog tot je het commando weer ziet en druk dan ENTER.
 
 ### Opruimen
 Om alles uiteindelijk weer netjes op te ruimen 
 ```bash
 gcloud deployment-manager deployments delete [MY_NAME]
 ```
-Waarna de volgende vraag verschijnt, toets een y en Enter
+**ENTER**
+
+Waarna de volgende vraag verschijnt, toets een y en **ENTER**
 
 ```
 Do you want to continue (y/N)? y
@@ -143,4 +146,4 @@ Hiermee wordt de omgeving weer schoongemaakt en worden alle zaken zoals deployme
 <walkthrough-conclusion-trophy></walkthrough-conclusion-trophy>
 
 Dit is het einde van de oefening terug naar 
-[Gitlab](https://gitlab.com/quintgroup/gemeenschappelijk-werken-met-git-en-gitlab/tree/master/Les%203)
+[Gitlab Quintgroup Les 3](https://gitlab.com/quintgroup/gemeenschappelijk-werken-met-git-en-gitlab/tree/master/Les%203)
