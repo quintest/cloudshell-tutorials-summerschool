@@ -20,16 +20,13 @@ Klik op het shell icoontje <walkthrough-cloud-shell-icon></walkthrough-cloud-she
 ```bash
 echo "Hello Quint Summerschool"
 ```
-Hierbij wordt de tekst naar je shell gekopieerd en kan je door Enter te drukken het commando uitvoeren. Daarbij wordt de tekst tussen
-de aanhalingstekens op de regel eronder getoond.
+Hierbij wordt de tekst naar je shell gekopieerd en kan je door **Enter** te drukken het commando uitvoeren. Daarbij wordt de tekst tussen de aanhalingstekens op de regel eronder getoond.
 
 Klik op **Next** of **Volgende** om verder te gaan, hierna kan je via de navigatie buttons onderaan vooruit of terug in de tutorial.
 
 ## De Cloud Shell
-Allereerst maken je kennis met de cloudshell, dit is het zwarte horizontale venster links onderaan het scherm. 
+Allereerst maak je kennis met de cloudshell, dit is het zwarte horizontale venster links onderaan het scherm. 
 Dit is de command-prompt die je van Google krijgt als je handelingen niet via het menu (klik) maar op basis van tekst invoer wil uitvoeren.
-Dit wil je wel eens doen omdat het na enige oefening sneller is dan via het menu werken, maar ook omdat je de regels zoals je 
-deze achter elkaar typt, kan uit laten voeren via een zogenaamd script. Hierdoor zijn deze handelingen herhaalbaar uit te voeren.
 
 ### De Cloud editor
 Boven de cloudshell staat een groot vlak met aan de zijkant een folder structuur, dit is de cloud-shell-editor. 
@@ -57,12 +54,6 @@ o.a. het Google datacenter in Eemshaven niet voor niets draaien..
 gcloud config set compute/zone europe-west4-a
 ```
 
-Om te voorkomen dat je voortdurend de vragen krijgt of je een service wil opstarten zet je deze services met het volgende commando aan:
-```bash
-gcloud services enable compute container deploymentmanager dns
-```
-Zodra je dit commando uitvoert, zal het even kunnen duren voor dit klaar is. Mocht er een ERROR verschijnen, laat dit dan even weten.
-
 ## Configuratie management
 Je maakt gebruik van de Google eigen tooling **Deployment Manager** om de servers in deze oefening aan te zetten.
 De tool zet configuratie bestanden in om de juiste instellingen een omgeving op te zetten, met daarin bijvoorbeeld de virtuele machine.
@@ -73,11 +64,11 @@ Klik op de instructie om het bestand te openen in de Editor:
 <walkthrough-editor-open-file filePath="cloudshell-tutorials-summerschool/provisioning/vm.yaml" text="Open configuratie bestand">
 </walkthrough-editor-open-file>
 
-Het bestand opent zich in de editor. Allereerst een waarschuwing vooraf, PAS NOG NIETS AAN, 
+Het bestand opent zich in de editor. Allereerst een waarschuwing vooraf, **PAS NOG NIETS AAN**, 
 aangezien het bestandsformaat erg gevoelig is voor spatie- en tab-indeling.
 
 ### Structuur van het config bestanden
-Het deployment bestand is ingedeeld volgens de sturctuur: 
+Het deployment bestand is ingedeeld volgens de sturctuur, welke je terug ziet in het geopende document: 
 - **Resource**: dit is de plek waar resources beschreven worden, dit zijn resources die 
 binnen de Google Cloud beschikbaar zijn
 - **Type**: binnen een resource beschrijving kan je meerdere type resources inzetten zoals vm's, 
@@ -85,13 +76,8 @@ netwerk componenten
 - **Name**: verplicht voor elke resource, een unieke naam
 - **Properties**: de eigenschappen van de te deployen resources
 
-Daarnaast is er de mogelijkheid om samenstelling van resources (bijvoorbeeld een vm en een database 
-service) als een deployment te beschrijven. Ook kan er gebruik gemaakt worden van templates en deployments van 
-derde partijen op de Google Cloud Marketplace. Voor deze oefening gaat dit echter te ver, belangrijkste om te 
-onthouden dat de tooling het mogelijk maakt flexibel deployments te bouwen aan de hand van de configuratie.
-
 ## Configuratie Invullen
-De geopende configuratie beschrijft in dit geval een virtuele machine instantie met de volgende eigenschappen:
+De geopende configuratie beschrijft in dit geval dat we een virtuele machine instantie met de volgende eigenschappen willen laten starten:
 
 + Machine type: `f1-micro`
 + Image family: `debian-9`
@@ -99,10 +85,14 @@ De geopende configuratie beschrijft in dit geval een virtuele machine instantie 
 + Root persistent disk: `boot`
 + Een random gekozen intern en extern IP address
 
-In het bestand vervang je de volgende placeholder:
+In het bestand vervang je de volgende placeholder inclusief de rechte haken:
 
 * `[MY_NAME]` met je **voornaam** LET OP ALLEEN KLEINE LETTERS!
- 
+
+```
+[MY_NAME] wordt dus markus
+```
+
 Om de verandering op te slaan klik je op het **File** menu, klik **Save**.
 
 ## Provisioning
