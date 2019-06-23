@@ -132,10 +132,10 @@ gcloud deployment-manager deployments describe [MY_NAME]
 Klik **Next** of **Volgende** om verder te gaan.
 
 ## De-Provisioning
-Geef bij de docent aan dat je klaar bent dan wachten we op de rest van de groep, voer af- en toe het List commando uit om te zien wie er nog meer klaar is. **Tip** toets hiervoor pijl omhoog tot je het commando weer ziet en druk dan ENTER.
+Nadat in de groep het resultaat bekeken is van alle machines kan je jouw deployment verwijderen, volg hiervoor onderstaande instructie.
 
 ### Opruimen
-Om alles uiteindelijk weer netjes op te ruimen 
+Om alles uiteindelijk weer netjes op te ruimen voer je volgende uit, weer met je eigen voornaam: 
 ```bash
 gcloud deployment-manager deployments delete [MY_NAME]
 ```
