@@ -34,6 +34,8 @@ Om het juiste project in Google Cloud in te stellen voer je volgende commando ui
 ```bash
 gcloud config set project quint-demo
 ```
+**ENTER**
+
 Als het goed is krijg je nu de toevoeging (quint-demo) in de cloudshell te zien en staat deze ook tussen haakjes boven je cloudshell.
 
 Verder stel je ook nog de regio in waar je machine zal verschijnen, om te zorgen dat de Eneco windmolenparken voor 
