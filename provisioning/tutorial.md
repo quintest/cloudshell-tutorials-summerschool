@@ -104,7 +104,6 @@ De geopende configuratie beschrijft in ons geval een virtuele machine instantie 
 In het bestand vervangen we de volgende placeholders:
 
 * `[MY_NAME]` met je **voornaam** LET OP ALLEEN KLEINE LETTERS!
-* `[MY_PROJECT]` met de project ID **quint-demo**
  
 To save your changes, from the **File** menu, click **Save**.
 
@@ -133,10 +132,15 @@ gcloud deployment-manager deployments describe [MY_NAME]
 
 ## De-Provisioning
 Om alles uiteindelijk weer netjes op te ruimen 
+```bash
+gcloud deployment-manager deployments delete [MY_NAME]
+```
+Waarna de volgende vraag verschijnt, toets een y en Enter
 
 ```
 Do you want to continue (y/N)? y
 ```
+Hiermee wordt de omgeving weer schoongemaakt en worden alle zaken zoals vm, disk en netwerk verwijderd.
 
 ## Einde Oefening
 <walkthrough-conclusion-trophy></walkthrough-conclusion-trophy>
