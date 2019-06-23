@@ -3,12 +3,7 @@
 </walkthrough-directive-name>
 
 **Duur van de oefening**: ongeveer 15 minuten
-## Doel
-Aan het einde van de les heb je gezien hoe je door het aanpassen van configuratie bestanden een omgeving kan aanmaken, 
-zonder handmatig nog in te grijpen gedurende de provisioning fase. Klik op de **Next** of **Volgende** button onderaan je scherm 
-om naar het volgende deel van de oefening te gaan.
-
-### De instructie omgeving
+## De instructie omgeving
 De tekst die je nu leest staat hier standaard niet, dit is een zogenaamde cloudshell tutorial omgeving. 
 Dit maakt het mogelijk om de oefening te voorzien van interactieve objecten zoals de Next button, 
 maar ook links naar andre sites en het heeft een spotlight functie, waarmee onderdelen in de gebruikersinterface 
