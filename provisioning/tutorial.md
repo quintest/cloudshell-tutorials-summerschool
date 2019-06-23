@@ -116,7 +116,11 @@ Hierna voer je de deployment uit, vervang hierbij `[MY_NAME]` door je eigen voor
 ```bash
 gcloud deployment-manager deployments create [MY_NAME] --config vm.yaml
 ```
-Hierna zal het even duren voor je de melding krijgt completed successfully, of een ERROR.
+Hierna zal het even duren voor je de melding krijgt completed successfully, of een ERROR. Als je een ERROR krijgt met daarin o.a. de volgende tekst, kijk dan nog even goed naar de vorige opdracht hierboven:
+```
+Invalid value for field 'resource.name': '[MY_NAME]'
+```
+
 Om te controleren of je deployment succesvol was, kan je het volgende commando uitvoeren om een overzicht van alle deployments te zien:
 ```bash
 gcloud deployment-manager deployments list
