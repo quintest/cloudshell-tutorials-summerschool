@@ -72,7 +72,7 @@ in te maken.
 
 Klik op de instructie:
 
-<walkthrough-editor-open-file filePath="/deploymentmanager-samples/examples/v2/quick_start/vm.yaml">
+<walkthrough-editor-open-file filePath="~/cloudshell-tutorials-summerschool/provisioning/vm.yaml">
 open het bestand vm.yaml</walkthrough-editor-open-file>
 
 Het bestand opent zich in de editor. Allereerst een waarschuwing vooraf, PAS ZO MIN MOGELIJK AAN, 
@@ -112,7 +112,7 @@ To save your changes, from the **File** menu, click **Save**.
 Om op basis van de configuratie een deployment uit te voeren type je het volgende in de cloudshell.
 Eerst moeten we zorgen dat we op de juiste plek staan in de folder structuur:
 ```bash
-cd ~/cloud-console-tutorials
+cd ~/cloudshell-tutorials-summerschool/provisioning
 ```
 
 Vervang hierbij `[MY_NAME]` door je eigen voornaam, alleen kleine letters.
@@ -120,11 +120,23 @@ Vervang hierbij `[MY_NAME]` door je eigen voornaam, alleen kleine letters.
 ```bash
 gcloud deployment-manager deployments create [MY_NAME] --config vm.yaml
 ```
+Om te controleren of je deployment succesvol was, kan het volgende commando uitvoeren om een overzicht van alle deployments te zien:
+```bash
+gcloud deployment-manager deployments list
+```
+Hierbij zie je alle Deployments, dus ook die van je collega's, als je meer informatie wil zien over je deployment toets dan
+(vervang weer met je voornaam, kleine letters):
+```bash
+gcloud deployment-manager deployments describe [MY_NAME]
+```
+
 
 ## De-Provisioning
+Om alles uiteindelijk weer netjes op te ruimen 
 
-
-
+```
+Do you want to continue (y/N)? y
+```
 
 ## Einde Oefening
 <walkthrough-conclusion-trophy></walkthrough-conclusion-trophy>
