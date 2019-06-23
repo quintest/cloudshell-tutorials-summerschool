@@ -28,13 +28,6 @@ Boven de cloudshell staat een groot vlak met aan de zijkant een folder structuur
 Deze editor maakt het eenvoudiger om tekst bestanden aan te maken en aan te passen. 
 Je zal deze editor verderop in de tutorial inzetten om configuratie bestanden mee aan te passen.
 
-**Tip**: Mocht de editor er niet staan of deze neemt teveel ruimte in dan kan deze door 
-te klikken op het icoontje <walkthrough-cloud-shell-editor-icon></walkthrough-cloud-shell-editor-icon> rechtboven, 
-aan en uitgezet worden.
-<walkthrough-spotlight-pointer spotlightId="devshell-web-editor-button"
-                               text="Open Editor">
-</walkthrough-spotlight-pointer>
-
 ## Cloudshell koppelen aan Quint-demo project 
 Als eerste stel je de juiste project omgeving in, zodat de virtuele machines die je gaat aanmaken in de juiste omgeving staan. 
 Om het juiste project in Google Cloud in te stellen voer je volgende commando uit:
