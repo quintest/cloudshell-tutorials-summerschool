@@ -14,7 +14,6 @@ resources:
       initializeParams:
         # See a full list of image families at https://cloud.google.com/compute/docs/images#os-compute-support
         sourceImage: https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/family/debian-9
-    # Vervang [MY_PROJECT] met project ID quint-demo
     networkInterfaces:
     - network: https://www.googleapis.com/compute/v1/projects/quint-demo/global/networks/default
       # Access Config required to give the instance a public IP address
