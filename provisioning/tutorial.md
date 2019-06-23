@@ -36,6 +36,7 @@ Om het juiste project in Google Cloud in te stellen voer je volgende commando ui
 ```bash
 gcloud config set project quint-demo
 ```
+
 **ENTER**
 
 Als het goed is krijg je nu de toevoeging (quint-demo) in de cloudshell te zien en staat deze ook tussen haakjes boven je cloudshell.
@@ -45,7 +46,9 @@ o.a. het Google datacenter in Eemshaven niet voor niets draaien..
 ```bash
 gcloud config set compute/zone europe-west4-a
 ```
+
 **ENTER**
+
 Antwoord zal zijn dat de compute/zone zijn geupdate, klik **Next** of **Volgende** om verder te gaan.
 
 ## Configuratie management
@@ -85,7 +88,6 @@ In het bestand vervang je `[MY_NAME]` inclusief de rechte haken door je voornaam
 ```
 [MY_NAME] wordt dus markus
 ```
-
 Om de verandering op te slaan klik je op het **File** menu, klik **Save**.
 
 Klik **Next** of **Volgende** om verder te gaan.
@@ -96,6 +98,7 @@ Eerst moet je zorgen dat je op de juiste plek staat in de folder structuur:
 ```bash
 cd ~/cloudshell-tutorials-summerschool/provisioning
 ```
+
 **ENTER** 
 
 Hierna voer je de deployment uit, vervang hierbij `[MY_NAME]` door je eigen voornaam, alleen kleine letters.
@@ -103,6 +106,7 @@ Hierna voer je de deployment uit, vervang hierbij `[MY_NAME]` door je eigen voor
 ```bash
 gcloud deployment-manager deployments create [MY_NAME] --config vm.yaml
 ```
+
 **ENTER**
 
 Hierna zal het even duren voor je de melding krijgt completed successfully, of een ERROR. Als je een ERROR krijgt met daarin o.a. de volgende tekst, kijk dan nog even goed naar de vorige opdracht hierboven:
@@ -114,13 +118,17 @@ Om te controleren of je deployment succesvol was, kan je het volgende commando u
 ```bash
 gcloud deployment-manager deployments list
 ```
+
 **ENTER**
+
 Hierbij zie je alle Deployments, dus ook die van je collega's, als je meer informatie wil zien over je eigen deployment 
 type dan het volgende (vervang weer met je voornaam, kleine letters):
 ```bash
 gcloud deployment-manager deployments describe [MY_NAME]
 ```
+
 **ENTER**
+
 Klik **Next** of **Volgende** om verder te gaan.
 
 ## De-Provisioning
