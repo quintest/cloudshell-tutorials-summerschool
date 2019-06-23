@@ -28,9 +28,11 @@ Klik op **Next** of **Volgende** om verder te gaan, hierna kan je via de navigat
 ## De Cloud Shell
 Allereerst maken je kennis met de cloudshell, dit is het zwarte horizontale venster links onderaan het scherm. 
 Dit is de command-prompt die je van Google krijgt als je handelingen niet via het menu (klik) maar op basis van tekst invoer wil uitvoeren.
+Dit wil je wel eens doen omdat het na enige oefening sneller is dan via het menu werken, maar ook omdat je de regels zoals je 
+deze achter elkaar typt, kan uit laten voeren via een zogenaamd script. Hierdoor zijn deze handelingen herhaalbaar uit te voeren.
 
 ### De Cloud editor
-Boven de cloudshell staat een groot vlak met aan de zijkant links een folder structuur, dit is de cloud-shell-editor. 
+Boven de cloudshell staat een groot vlak met aan de zijkant een folder structuur, dit is de cloud-shell-editor. 
 Deze editor maakt het eenvoudiger om tekst bestanden aan te maken en aan te passen. 
 Je zal deze editor verderop in de tutorial inzetten om configuratie bestanden mee aan te passen.
 
@@ -68,8 +70,8 @@ Om ervoor te zorgen dat je niet allemaal dezelfde omgeving neerzet, is er een ve
 
 Klik op de instructie om het bestand te openen in de Editor:
 
-<walkthrough-editor-open-file filePath="~/cloudshell-tutorials-summerschool/provisioning/vm.yaml">
-open het bestand vm.yaml</walkthrough-editor-open-file>
+<walkthrough-editor-open-file filePath="cloudshell-tutorials-summerschool/provisioning/vm.yaml" text="Open configuratie bestand">
+</walkthrough-editor-open-file>
 
 Het bestand opent zich in de editor. Allereerst een waarschuwing vooraf, PAS NOG NIETS AAN, 
 aangezien het bestandsformaat erg gevoelig is voor spatie- en tab-indeling.
@@ -114,6 +116,7 @@ Hierna voer je de deployment uit, vervang hierbij `[MY_NAME]` door je eigen voor
 ```bash
 gcloud deployment-manager deployments create [MY_NAME] --config vm.yaml
 ```
+Hierna zal het even duren voor je de melding krijgt completed successfully, of een ERROR.
 Om te controleren of je deployment succesvol was, kan je het volgende commando uitvoeren om een overzicht van alle deployments te zien:
 ```bash
 gcloud deployment-manager deployments list
