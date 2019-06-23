@@ -1,9 +1,8 @@
 resources:
 - type: compute.v1.instance
-  name: markus03-vm
+  # Pas de naam aan, vul je voornaam in, gebruik alleen kleine letters
+  name: [MY_NAME]
   properties:
-    # The properties of the resource depend on the type of resource. For a list
-    # of properties, see the API reference for the resource.
     zone: europe-west4-a
     machineType: https://www.googleapis.com/compute/v1/projects/quint-demo/zones/europe-west4-a/machineTypes/f1-micro
     disks:
