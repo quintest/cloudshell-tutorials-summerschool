@@ -140,7 +140,7 @@ Waarna de volgende vraag verschijnt, toets een y en Enter
 ```
 Do you want to continue (y/N)? y
 ```
-Hiermee wordt de omgeving weer schoongemaakt en worden alle zaken zoals vm, disk en netwerk verwijderd.
+Hiermee wordt de omgeving weer schoongemaakt en worden alle zaken zoals deployment, vm, disk en netwerk verwijderd.
 
 ## Einde Oefening
 <walkthrough-conclusion-trophy></walkthrough-conclusion-trophy>
