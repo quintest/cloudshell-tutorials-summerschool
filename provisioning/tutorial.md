@@ -28,6 +28,8 @@ Boven de cloudshell staat een groot vlak met aan de zijkant een folder structuur
 Deze editor maakt het eenvoudiger om tekst bestanden aan te maken en aan te passen. 
 Je zal deze editor verderop in de tutorial inzetten om configuratie bestanden mee aan te passen.
 
+Klik **Next** of **Volgende** om verder te gaan.
+
 ## Cloudshell koppelen aan Quint-demo project 
 Als eerste stel je de juiste project omgeving in, zodat de virtuele machines die je gaat aanmaken in de juiste omgeving staan. 
 Om het juiste project in Google Cloud in te stellen voer je volgende commando uit:
@@ -44,7 +46,7 @@ o.a. het Google datacenter in Eemshaven niet voor niets draaien..
 gcloud config set compute/zone europe-west4-a
 ```
 **ENTER**
-Antwoord zal zijn dat de compute/zone zijn geupdate, klik Next
+Antwoord zal zijn dat de compute/zone zijn geupdate, klik **Next** of **Volgende** om verder te gaan.
 
 ## Configuratie management
 **Deployment Manager**  werkt op basis van configuratie bestanden en optioneel templates.
@@ -74,7 +76,7 @@ De geopende configuratie beschrijft in dit geval dat we een virtuele machine ins
 + Root persistent disk: `boot`
 + Een random gekozen intern en extern IP address
 
-Klik op Next om verder te gaan 
+Klik **Next** of **Volgende** om verder te gaan.
 
 ## Configuratie Aanpassen
 Om ervoor te zorgen dat je niet dezelfde omgeving neerzet als je mede-cursisten, is er één veld dat je moet aanpassen.
@@ -85,7 +87,8 @@ In het bestand vervang je `[MY_NAME]` inclusief de rechte haken door je voornaam
 ```
 
 Om de verandering op te slaan klik je op het **File** menu, klik **Save**.
-Klik op Next om verder te gaan.
+
+Klik **Next** of **Volgende** om verder te gaan.
 
 ## Provisioning
 Om op basis van de configuratie een deployment uit te voeren type je het volgende in de cloudshell.
@@ -100,6 +103,8 @@ Hierna voer je de deployment uit, vervang hierbij `[MY_NAME]` door je eigen voor
 ```bash
 gcloud deployment-manager deployments create [MY_NAME] --config vm.yaml
 ```
+**ENTER**
+
 Hierna zal het even duren voor je de melding krijgt completed successfully, of een ERROR. Als je een ERROR krijgt met daarin o.a. de volgende tekst, kijk dan nog even goed naar de vorige opdracht hierboven:
 ```
 Invalid value for field 'resource.name': '[MY_NAME]'
@@ -109,11 +114,14 @@ Om te controleren of je deployment succesvol was, kan je het volgende commando u
 ```bash
 gcloud deployment-manager deployments list
 ```
+**ENTER**
 Hierbij zie je alle Deployments, dus ook die van je collega's, als je meer informatie wil zien over je eigen deployment 
 type dan het volgende (vervang weer met je voornaam, kleine letters):
 ```bash
 gcloud deployment-manager deployments describe [MY_NAME]
 ```
+**ENTER**
+Klik **Next** of **Volgende** om verder te gaan.
 
 ## De-Provisioning
 Geef bij de docent aan dat je klaar bent dan wachten we op de rest van de groep, voer af- en toe het List commando uit om te zien wie er nog meer klaar is. **Tip** toets hiervoor pijl omhoog tot je het commando weer ziet en druk dan ENTER.
@@ -131,6 +139,7 @@ Waarna de volgende vraag verschijnt, toets een y en **ENTER**
 Do you want to continue (y/N)? y
 ```
 Hiermee wordt de omgeving weer schoongemaakt en worden alle zaken zoals deployment, vm, disk en netwerk verwijderd.
+Klik **Next** of **Volgende** om verder te gaan.
 
 ## Einde Oefening
 <walkthrough-conclusion-trophy></walkthrough-conclusion-trophy>
