@@ -28,11 +28,9 @@ Klik op **Next** of **Volgende** om verder te gaan, hierna kan je via de navigat
 ## De Cloud Shell
 Allereerst maken je kennis met de cloudshell, dit is het zwarte horizontale venster links onderaan het scherm. 
 Dit is de command-prompt die je van Google krijgt als je handelingen niet via het menu (klik) maar op basis van tekst invoer wil uitvoeren.
-Dit wil je wel eens doen omdat het na enige oefening sneller is dan via het menu werken, maar ook omdat je de regels zoals je 
-deze achter elkaar typt, kan uit laten voeren via een zogenaamd script. Hierdoor zijn deze handelingen herhaalbaar uit te voeren.
 
 ### De Cloud editor
-Boven de cloudshell staat een groot vlak met aan de zijkant een folder structuur, dit is de cloud-shell-editor. 
+Boven de cloudshell staat een groot vlak met aan de zijkant links een folder structuur, dit is de cloud-shell-editor. 
 Deze editor maakt het eenvoudiger om tekst bestanden aan te maken en aan te passen. 
 Je zal deze editor verderop in de tutorial inzetten om configuratie bestanden mee aan te passen.
 
