@@ -53,6 +53,8 @@ o.a. het Google datacenter in Eemshaven niet voor niets draaien..
 ```bash
 gcloud config set compute/zone europe-west4-a
 ```
+**ENTER**
+Antwoord zal zijn dat de compute/zone zijn geupdate, klik Next
 
 ## Configuratie management
 Je maakt gebruik van de Google eigen tooling **Deployment Manager** om de servers in deze oefening aan te zetten.
