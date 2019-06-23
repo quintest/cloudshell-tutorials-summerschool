@@ -18,7 +18,7 @@ uitgelicht kunnen worden.
 Voer als eerste de volgende handeling uit om te gevoel te krijgen bij de tutorial omgeving.
 Klik op het shell icoontje <walkthrough-cloud-shell-icon></walkthrough-cloud-shell-icon> naast de onderstaande tekst:
 ```bash
-echo "Hello Quint Summerschool!"
+echo "Hello Quint Summerschool"
 ```
 Hierbij wordt de tekst naar je shell gekopieerd en kan je door Enter te drukken het commando uitvoeren. Daarbij wordt de tekst tussen
 de aanhalingstekens op de regel eronder getoond.
