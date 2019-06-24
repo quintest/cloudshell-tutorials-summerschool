@@ -83,10 +83,16 @@ Klik **Next** of **Volgende** om verder te gaan.
 
 ## Configuratie Aanpassen
 Om ervoor te zorgen dat je niet dezelfde omgeving neerzet als je mede-cursisten, is er één veld dat je moet aanpassen.
-In het bestand vervang je `[MY_NAME]` inclusief de rechte haken door je voornaam, **LET OP ALLEEN KLEINE LETTERS!**
+In het bestand zoek je `name` op en vervang je `MY_NAME` door je voornaam. 
 
-```
-[MY_NAME] wordt dus markus
+**LET OP: GEBRUIK ALLEEN KLEINE LETTERS EN GEEN ANDERE TEKENS!**
+
+Mocht je voornaam dus Markus zijn dan krijg je:
+
+```yaml
+  # Vul je voornaam waar MY_NAME staat, 
+  # gebruik alleen kleine letters!
+  name: markus
 ```
 Om de verandering op te slaan klik je op het **File** menu, klik **Save**.
 
@@ -101,7 +107,7 @@ cd ~/cloudshell-tutorials-summerschool/provisioning
 
 **ENTER** 
 
-Hierna voer je de deployment uit, vervang hierbij `[MY_NAME]` door je eigen voornaam, alleen kleine letters.
+Hierna voer je de deployment uit, vervang hierbij `[MY_NAME]` door je eigen voornaam, alleen kleine letters, net als bij de vorige opdracht, dus ook **geen rechte haken** om je naam.
 
 ```bash
 gcloud deployment-manager deployments create [MY_NAME] --config vm.yaml
