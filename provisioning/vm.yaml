@@ -1,7 +1,8 @@
 resources:
 - type: compute.v1.instance
-  # Pas de naam aan, vul je voornaam in, gebruik alleen kleine letters
-  name: [MY_NAME]
+  # Vul je voornaam waar MY_NAME staat, 
+  # gebruik alleen kleine letters!
+  name: MY_NAME
   properties:
     zone: europe-west4-a
     machineType: https://www.googleapis.com/compute/v1/projects/quint-demo/zones/europe-west4-a/machineTypes/f1-micro
