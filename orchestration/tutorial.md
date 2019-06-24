@@ -1,63 +1,81 @@
-# Les 2 Oefening Provisioning
+# Les 3 Orchstration Demo
 <walkthrough-directive-name name="Markus Keuter">
 </walkthrough-directive-name>
 
 **Duur van de oefening**: ongeveer 15 minuten
-## De instructie omgeving
-De tekst die je nu leest staat hier standaard niet, dit is een zogenaamde cloudshell tutorial omgeving. 
-Dit maakt het mogelijk om de oefening te voorzien van interactieve objecten zoals de Next button, 
-maar ook links naar andre sites en het heeft een spotlight functie, waarmee onderdelen in de gebruikersinterface 
-uitgelicht kunnen worden.
 
-### Tekst kopieeren
-Voer als eerste de volgende handeling uit om te gevoel te krijgen bij de tutorial omgeving.
-Klik op het shell icoontje <walkthrough-cloud-shell-icon></walkthrough-cloud-shell-icon> naast de onderstaande tekst:
-```bash
-echo "Hello Quint Summerschool"
-```
-Hierbij wordt de tekst naar je shell gekopieerd en kan je door **Enter** te drukken het commando uitvoeren. Daarbij wordt de tekst tussen de aanhalingstekens op de regel eronder getoond.
+Om te beginnen zetten we eerst alle instellingen die noodzakelijk zijn op.
 
-Klik op **Next** of **Volgende** om verder te gaan, hierna kan je via de navigatie buttons onderaan vooruit of terug in de tutorial.
+Deze tutorial gaat uit van het project quint-demo, mocht je deze tutorial 
+onafhankelijk van de training volgen, selecteer dan een eigen project.
 
-## De Cloud Shell
-Allereerst maak je kennis met de cloudshell, dit is het zwarte horizontale venster links onderaan het scherm. 
-Dit is de command-prompt die je van Google krijgt als je handelingen niet via het menu (klik) maar op basis van tekst invoer wil uitvoeren.
+Klik op het shell icoontje en daarna op **ENTER**:
 
-### De Cloud editor
-Boven de cloudshell staat een groot vlak met aan de zijkant een folder structuur, dit is de cloud-shell-editor. 
-Deze editor maakt het eenvoudiger om tekst bestanden aan te maken en aan te passen. 
-Je zal deze editor verderop in de tutorial inzetten om configuratie bestanden mee aan te passen.
-
-Klik **Next** of **Volgende** om verder te gaan.
-
-## Cloudshell koppelen aan Quint-demo project 
-Als eerste stel je de juiste project omgeving in, zodat de virtuele machines die je gaat aanmaken in de juiste omgeving staan. 
-Om het juiste project in Google Cloud in te stellen voer je volgende commando uit:
 ```bash
 gcloud config set project quint-demo
-```
+```  
 
-**ENTER**
-
-Als het goed is krijg je nu de toevoeging (quint-demo) in de cloudshell te zien en staat deze ook tussen haakjes boven je cloudshell.
-
-Verder stel je ook nog de regio in waar je machine zal verschijnen, om te zorgen dat de Eneco windmolenparken voor 
-o.a. het Google datacenter in Eemshaven niet voor niets draaien..
+Stel de juiste compute zone in (Eemshaven NL) 
 ```bash
 gcloud config set compute/zone europe-west4-a
-```
+```  
 
 **ENTER**
 
-Antwoord zal zijn dat de compute/zone zijn geupdate, klik **Next** of **Volgende** om verder te gaan.
+## Opzetten Kubectl
+Kubectl is de controller van Kubernetes, met deze controller kan je via de API van 
+Kubernetes, op afstand, taken laten uitvoeren op het Kubernetes cluster
 
-## Configuratie management
-**Deployment Manager**  werkt op basis van configuratie bestanden en optioneel templates.
-De tool zet configuratie bestanden in om de juiste instellingen een omgeving op te zetten, met daarin bijvoorbeeld de virtuele machine.
-Klik op de instructie om het bestand te openen in de Editor:
+```bash
+gcloud components install kubectl
+```
 
+## Deze stap overslaan bij training
+We geven middels gcloud de opdracht om een GKE container cluster te bouwen bestaande 
+twee nodes. We noemen het cluster het persistent-disk-tutorial cluster.
+```bash  
+gcloud container clusters create quint-kube-orchestration --num-nodes=2
+```
+Dit kan een paar minuten duren....
+
+## Verbinden met bestaand cluster
+Als eerste zorg je met onderstaand commndo ervoor dat je geautoriseerd bent om
+met het cluster te werken.
+
+```bash
+gcloud container clusters get-credentials quint-kube-orchestration
+```
 <walkthrough-editor-open-file filePath="cloudshell-tutorials-summerschool/provisioning/vm.yaml" text="Open configuratie bestand">
 </walkthrough-editor-open-file>
+
+```bash
+kubectl apply -f mysql-volumeclaim.yaml
+```
+
+```bash
+kubectl apply -f wordpress-volumeclaim.yaml
+```
+
+```bash
+kubectl get pvc
+```
+
+```bash
+kubectl delete pvc wordpress-volumeclaim
+```
+
+```bash
+kubectl delete pvc mysql-volumeclaim
+```
+
+```bash
+kubectl delete pod -l app=mysql
+```
+
+```bash
+gcloud container clusters delete persistent-disk-tutorial
+```
+
 
 Het bestand opent zich in de editor. Allereerst een waarschuwing vooraf, **PAS NOG NIETS AAN**, 
 aangezien het bestandsformaat erg gevoelig is voor spatie- en tab-indeling. Kijk eerst even naar het bestand.
