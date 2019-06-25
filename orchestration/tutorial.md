@@ -45,7 +45,14 @@ met het cluster te werken.
 ```bash
 gcloud container clusters get-credentials quint-kube-orchestration
 ```
-<walkthrough-editor-open-file filePath="cloudshell-tutorials-summerschool/provisioning/vm.yaml" text="Open configuratie bestand">
+
+Zodra dit is gelukt, kan je naar folder met configuratie bestanden navigeren:
+```bash
+cd ~/cloudshell-tutorials-summerschool/orchestration
+```
+En daarna op je door onderstaande link te klikken het configuratie bestand voor het aanmaken van een schijf voor de databse container.
+
+<walkthrough-editor-open-file filePath="cloudshell-tutorials-summerschool/orchestration/mysql-volumeclaim.yaml" text="Open configuratie bestand mysql-volumeclaim.yaml">
 </walkthrough-editor-open-file>
 
 ```bash
