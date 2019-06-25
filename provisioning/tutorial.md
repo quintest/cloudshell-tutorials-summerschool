@@ -156,6 +156,12 @@ Hiermee wordt de omgeving weer schoongemaakt en worden alle zaken zoals deployme
 Klik **Next** of **Volgende** om verder te gaan.
 
 ## Einde Oefening
+Zodra je klaar bent met de oeefening voer je onderstaande uit, zodat je de bij de volgende oefening weer met een schone omgeving start:
+
+```bash
+cd ~ && rm -rf cloudshell-tutorials-summerschool/
+```
+
 <walkthrough-conclusion-trophy></walkthrough-conclusion-trophy>
 
 Dit is het einde van de oefening terug naar 
