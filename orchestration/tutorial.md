@@ -101,67 +101,18 @@ kubectl get service
 
 
 ## Deployement aantallen verhogen
-Door op onderstaande link te klikken open je het zogenaamde manifest bestand van de container webapplicatie aanpassen. 
-
-<walkthrough-editor-open-file filePath="cloudshell-tutorials-summerschool/orchestration/manifests/helloweb-deployment.yaml" text="Open configuratie bestand helloweb-deployment.yaml.yaml">
-</walkthrough-editor-open-file>
-Op basis van dit manifest, wordt de container gebouwd, zodra je onderstaand commando uitvoert:
-
+Door onderstaande commando kan je het huidige aantal replica's (1), verhogen naar 3, waardoor er 3 containers in jouw deployment draaien, vervang ook hier weer 'markus' door je eigen naam: 
 ```bash
-
+kubectl scale deployment markus --replicas=3
 ```
-Om te controlleren of de container (ook wel Pod genoemd in Kubernetes) bestaat, controlleer je dit:
+
+Om te controlleren of de container 3 keer draait type je en vervang je 'markus' met je eigen naam:
 ```bash
-kubectl get pod -l app=mysql
+kubectl get deployment markus
 ```
 
-Om gebruik te kunnen maken van de MySQL server, zal deze als Service gepubliceerd worden binnen het Kubernetes cluster 
-
-```bash
-kubectl create -f mysql-service.yaml
-```
-
-```bash
-kubectl create -f wordpress-service.yaml
-```
-
-Controleer of je al een External LoadBalancer IP adres hebt door volgende opdracht uit te voeren:
-
-```bash
-kubectl get svc -l app=wordpress
-```
-
-Zodra je iets ziet dat op volgende lijkt is de service beschikbaar:
-```
-NAME        CLUSTER-IP      EXTERNAL-IP    PORT(S)        AGE
-wordpress   10.51.243.233   203.0.113.3    80:32418/TCP   1m
-```
-Copieer het EXTERNAL-IP adres dat je in de console ziet in een browser en navigeer naar de Word[press pagine, volg de instructies en je 
-Wordpress pagina is een feit.
 
 
 ## Opruimen
 Voer de onderstaande opdrachten uit om de omgeving op te ruimen:
 
-```bash
-kubectl delete service wordpress
-```
-
-
-```bash
-kubectl delete pod -l app=mysql
-``
-
-```bash
-kubectl delete pvc wordpress-volumeclaim
-```
-
-```bash
-kubectl delete pvc mysql-volumeclaim
-```
-`
-
-```bash
-gcloud container clusters delete persistent-disk-tutorial
-```
-Om zeker te zijn dat je geen rekening meer krijgt voor de omgeving, kan je het project ontkoppelen van je Billing account of het project als geheel weggooien.
