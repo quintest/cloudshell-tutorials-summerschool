@@ -87,7 +87,7 @@ docker push eu.gcr.io/quint-demo/hello-app:v1
 
 Hierna voer je onderstaand commando uit vervang 'markus' door je eigen naam: 
 ```bash
-kubectl create deployment markus --image=eu.gcr.io/quint-demo/hello-app:v1```
+kubectl create deployment markus --image=eu.gcr.io/quint-demo/hello-app:v1
 ```
 Hier maak je LoadBalancer aan, vervang ook hier weer 'markus' door je eigen naam:
 ```bash
@@ -100,16 +100,15 @@ kubectl get service
 ```
 
 
-## Deployement verhogen
+## Deployement aantallen verhogen
+Door op onderstaande link te klikken open je het zogenaamde manifest bestand van de container webapplicatie aanpassen. 
 
-`Door op onderstaande link te klikken open je het zogenaamde manifest bestand van de container webapplicatie aanpassen. 
-
-<walkthrough-editor-open-file filePath="cloudshell-tutorials-summerschool/orchestration/mysql.yaml" text="Open configuratie bestand mysql.yaml">
+<walkthrough-editor-open-file filePath="cloudshell-tutorials-summerschool/orchestration/manifests/helloweb-deployment.yaml" text="Open configuratie bestand helloweb-deployment.yaml.yaml">
 </walkthrough-editor-open-file>
 Op basis van dit manifest, wordt de container gebouwd, zodra je onderstaand commando uitvoert:
 
 ```bash
-kubectl create -f mysql.yaml
+
 ```
 Om te controlleren of de container (ook wel Pod genoemd in Kubernetes) bestaat, controlleer je dit:
 ```bash
