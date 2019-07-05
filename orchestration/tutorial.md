@@ -17,7 +17,7 @@ gcloud config set project quint-demo
 
 Stel de juiste compute zone in (Eemshaven NL) 
 ```bash
-gcloud config set compute/zone europe-west4-a
+gcloud config set compute/zone europe-west4-b
 ```  
 
 **ENTER**
@@ -35,7 +35,7 @@ We geven middels gcloud de opdracht om een GKE container cluster te bouwen besta
 twee nodes. In de training setting van Summerschool heb je geen rechten om dit te bouwen, deze stap staat in de tutorial wanneer je dit wil bouwen in je eigen Google Cloud omgeving. 
 We noemen het cluster het persistent-disk-tutorial cluster.
 ```bash  
-gcloud container clusters create quint-kube-orchestration --num-nodes=2
+gcloud container clusters create quint-kube-orchestration --num-nodes=3
 ```
 Dit kan een paar minuten duren....
 
@@ -134,16 +134,22 @@ Wordpress pagina is een feit.
 Voer de onderstaande opdrachten uit om de omgeving op te ruimen:
 
 ```bash
+kubectl delete service wordpress
+```
+
+
+```bash
+kubectl delete pod -l app=mysql
+``
+
+```bash
 kubectl delete pvc wordpress-volumeclaim
 ```
 
 ```bash
 kubectl delete pvc mysql-volumeclaim
 ```
-
-```bash
-kubectl delete pod -l app=mysql
-```
+`
 
 ```bash
 gcloud container clusters delete persistent-disk-tutorial
