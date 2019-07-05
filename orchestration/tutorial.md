@@ -30,9 +30,10 @@ Kubernetes, op afstand, taken laten uitvoeren op het Kubernetes cluster
 gcloud components install kubectl
 ```
 
-## Deze stap overslaan bij training
+## Kubernetes Cluster Bouwen
 We geven middels gcloud de opdracht om een GKE container cluster te bouwen bestaande 
-twee nodes. We noemen het cluster het persistent-disk-tutorial cluster.
+twee nodes. In de training setting van Summerschool heb je geen rechten om dit te bouwen, deze stap staat in de tutorial wanneer je dit wil bouwen in je eigen Google Cloud omgeving. 
+We noemen het cluster het persistent-disk-tutorial cluster.
 ```bash  
 gcloud container clusters create quint-kube-orchestration --num-nodes=2
 ```
@@ -46,6 +47,7 @@ met het cluster te werken.
 gcloud container clusters get-credentials quint-kube-orchestration
 ```
 
+## Aanmaken persistent storage
 Zodra dit is gelukt, kan je naar folder met configuratie bestanden navigeren:
 ```bash
 cd ~/cloudshell-tutorials-summerschool/orchestration
@@ -55,17 +57,81 @@ En daarna op je door onderstaande link te klikken het configuratie bestand voor 
 <walkthrough-editor-open-file filePath="cloudshell-tutorials-summerschool/orchestration/mysql-volumeclaim.yaml" text="Open configuratie bestand mysql-volumeclaim.yaml">
 </walkthrough-editor-open-file>
 
+Deze Yaml file beschrijft een zogenaamde claim op een harde schijf van 200GB die aangemaakt wordt op basis van de opgegeven naam. Deze schijf wordt gebruikt voor de 
+MySQL database en door deze buiten de container aan te maken van MySQL zelf, is de data veilig en beschikbaar bij uitzetten, vervangen of verwijderen van
+de container.
+Met het onderstaande commando maak je deze claim aan.
+
 ```bash
 kubectl apply -f mysql-volumeclaim.yaml
 ```
 
+Ditzelfde doen we ook voor de Wordpress applicatie server schijf:
 ```bash
 kubectl apply -f wordpress-volumeclaim.yaml
 ```
 
+Controlleer of je de schijven bestaan:
 ```bash
 kubectl get pvc
 ```
+
+## Deployement van MySQL Container
+
+```bash
+kubectl create secret generic mysql --from-literal=password=YOUR_PASSWORD
+```
+Door op onderstaande link te klikken open je het zogenaamde manifest bestand van de MySQL container. 
+
+<walkthrough-editor-open-file filePath="cloudshell-tutorials-summerschool/orchestration/mysql.yaml" text="Open configuratie bestand mysql.yaml">
+</walkthrough-editor-open-file>
+Op basis van dit manifest, wordt de container gebouwd, zodra je onderstaand commando uitvoert:
+
+```bash
+kubectl create -f mysql.yaml
+```
+Om te controlleren of de container (ook wel Pod genoemd in Kubernetes) bestaat, controlleer je dit:
+```bash
+kubectl get pod -l app=mysql
+```
+
+Om gebruik te kunnen maken van de MySQL server, zal deze als Service gepubliceerd worden binnen het Kubernetes cluster 
+
+```bash
+kubectl create -f mysql-service.yaml
+```
+
+## Wordpress Container Aanmaken
+Ook hier starten we met het aanmaken van de container
+```bash
+kubectl create -f wordpress.yaml
+```
+
+**LET OP**: hierna wordt het echter anders. De Wordpress Service ga je namelijk op Internet publiceren. Hierbij maak je gebruik van de 
+LoadBalancer service van Google. Je Wordpress container is op moment van publicatie beschikbaar voor iedereen die het IP adres heeft. 
+Het is dus belangrijk om de volgende handelingen achter elkaar uit te voeren en hier niet een paar uur tussen te laten zitten.
+
+```bash
+kubectl create -f wordpress-service.yaml
+```
+
+Controleer of je al een External LoadBalancer IP adres hebt door volgende opdracht uit te voeren:
+
+```bash
+kubectl get svc -l app=wordpress
+```
+
+Zodra je iets ziet dat op volgende lijkt is de service beschikbaar:
+```
+NAME        CLUSTER-IP      EXTERNAL-IP    PORT(S)        AGE
+wordpress   10.51.243.233   203.0.113.3    80:32418/TCP   1m
+```
+Copieer het EXTERNAL-IP adres dat je in de console ziet in een browser en navigeer naar de Word[press pagine, volg de instructies en je 
+Wordpress pagina is een feit.
+
+
+## Opruimen
+Voer de onderstaande opdrachten uit om de omgeving op te ruimen:
 
 ```bash
 kubectl delete pvc wordpress-volumeclaim
@@ -82,106 +148,4 @@ kubectl delete pod -l app=mysql
 ```bash
 gcloud container clusters delete persistent-disk-tutorial
 ```
-
-
-Het bestand opent zich in de editor. Allereerst een waarschuwing vooraf, **PAS NOG NIETS AAN**, 
-aangezien het bestandsformaat erg gevoelig is voor spatie- en tab-indeling. Kijk eerst even naar het bestand.
-
-### Structuur van het config bestanden
-Het deployment bestand is ingedeeld volgens de sturctuur, welke je terug ziet in het geopende document: 
-- **Resource**: dit is de plek waar resources beschreven worden, dit zijn resources die 
-binnen de Google Cloud beschikbaar zijn
-- **Type**: binnen een resource beschrijving kan je meerdere type resources inzetten zoals vm's, 
-netwerk componenten
-- **Name**: verplicht voor elke resource, een unieke naam
-- **Properties**: de eigenschappen van de te deployen resources
-
-De geopende configuratie beschrijft in dit geval dat we een virtuele machine instantie met de volgende eigenschappen willen laten starten:
-
-+ Machine type: `f1-micro`
-+ Image family: `debian-9`
-+ Zone: `europe-west4-a`
-+ Root persistent disk: `boot`
-+ Een random gekozen intern en extern IP address
-
-Klik **Next** of **Volgende** om verder te gaan.
-
-## Configuratie Aanpassen
-Om ervoor te zorgen dat je niet dezelfde omgeving neerzet als je mede-cursisten, is er één veld dat je moet aanpassen.
-In het bestand zoek je `name` op en vervang je `MY_NAME` door je voornaam. 
-
-**LET OP: GEBRUIK ALLEEN KLEINE LETTERS EN GEEN ANDERE TEKENS!**
-
-Mocht je voornaam dus Markus zijn dan krijg je:
-
-```yaml
-  # Vul je voornaam waar MY_NAME staat, 
-  # gebruik alleen kleine letters!
-  name: markus
-```
-Om de verandering op te slaan klik je op het **File** menu, klik **Save**.
-
-Klik **Next** of **Volgende** om verder te gaan.
-
-## Provisioning
-Om op basis van de configuratie een deployment uit te voeren type je het volgende in de cloudshell.
-Eerst moet je zorgen dat je op de juiste plek staat in de folder structuur:
-```bash
-cd ~/cloudshell-tutorials-summerschool/provisioning
-```
-
-**ENTER** 
-
-Hierna voer je de deployment uit, vervang hierbij `[MY_NAME]` door je eigen voornaam, alleen kleine letters, net als bij de vorige opdracht, dus ook **geen rechte haken** om je naam.
-
-```bash
-gcloud deployment-manager deployments create [MY_NAME] --config vm.yaml
-```
-
-**ENTER**
-
-Hierna zal het even duren voor je de melding krijgt completed successfully, of een ERROR. Als je een ERROR krijgt met daarin o.a. de volgende tekst, kijk dan nog even goed naar de vorige opdracht hierboven:
-```
-Invalid value for field 'resource.name': '[MY_NAME]'
-```
-
-Om te controleren of je deployment succesvol was, kan je het volgende commando uitvoeren om een overzicht van alle deployments te zien:
-```bash
-gcloud deployment-manager deployments list
-```
-
-**ENTER**
-
-Hierbij zie je alle Deployments, dus ook die van je collega's, als je meer informatie wil zien over je eigen deployment 
-type dan het volgende (vervang weer met je voornaam, kleine letters):
-```bash
-gcloud deployment-manager deployments describe [MY_NAME]
-```
-
-**ENTER**
-
-Klik **Next** of **Volgende** om verder te gaan.
-
-## De-Provisioning
-Nadat in de groep het resultaat bekeken is van alle machines kan je jouw deployment verwijderen, volg hiervoor onderstaande instructie.
-
-### Opruimen
-Om alles uiteindelijk weer netjes op te ruimen voer je volgende uit, weer met je eigen voornaam: 
-```bash
-gcloud deployment-manager deployments delete [MY_NAME]
-```
-**ENTER**
-
-Waarna de volgende vraag verschijnt, toets een y en **ENTER**
-
-```
-Do you want to continue (y/N)? y
-```
-Hiermee wordt de omgeving weer schoongemaakt en worden alle zaken zoals deployment, vm, disk en netwerk verwijderd.
-Klik **Next** of **Volgende** om verder te gaan.
-
-## Einde Oefening
-<walkthrough-conclusion-trophy></walkthrough-conclusion-trophy>
-
-Dit is het einde van de oefening terug naar 
-[Gitlab Quintgroup Les 3](https://gitlab.com/quintgroup/gemeenschappelijk-werken-met-git-en-gitlab/tree/master/Les%203)
+Om zeker te zijn dat je geen rekening meer krijgt voor de omgeving, kan je het project ontkoppelen van je Billing account of het project als geheel weggooien.
