@@ -52,6 +52,11 @@ met het cluster te werken.
 ```bash
 gcloud container clusters get-credentials quint-kube-orchestration
 ```
+Verder hebben we nog een variabele nodig voor het instellen van het juiste project:
+```bash
+export PROJECT_ID="$(gcloud config get-value project -q)"
+```
+
 
 ## Docker Container aanmaken
 Zodra dit is gelukt, kan je naar folder met configuratie bestanden navigeren:
@@ -66,7 +71,7 @@ En daarna op je door onderstaande link te klikken het configuratie bestand voor 
 In de console van Google heb je de beschikking over Docker. Docker pakt automatisch een bestand in de folder als input voor
 het bouwen van de container:
 ```bash
-docker build -t eu.gcr.io/${PROJECT_ID}/hello-app:v1 .
+docker build -t eu.gcr.io/quint-demo/hello-app:v1 .
 ```
 De Docker installatie in je console moet nog wel rechten krijgen binnen de cloud omgeving:
 ```bash
@@ -77,12 +82,12 @@ gcloud auth configure-docker
 Om de container te publiceren in de centrale opslag voor containers (de zgn Registry), gebruik je onderstaand commando,
 **Sla deze stap over tijdens de training!**
 ```bash
-docker push eu.gcr.io/${PROJECT_ID}/hello-app:v1
+docker push eu.gcr.io/quint-demo/hello-app:v1
 ```
 
 Hierna voer je onderstaand commando uit vervang 'markus' door je eigen naam: 
 ```bash
-kubectl create deployment markus --image=eu.gcr.io/${PROJECT_ID}/hello-app:v1```
+kubectl create deployment markus --image=eu.gcr.io/quint-demo/hello-app:v1```
 ```
 Hier maak je LoadBalancer aan, vervang ook hier weer 'markus' door je eigen naam:
 ```bash
