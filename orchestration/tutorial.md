@@ -110,7 +110,8 @@ Om te controlleren of de container 3 keer draait type je en vervang je 'markus' 
 ```bash
 kubectl get deployment markus
 ```
-
+## Versie aanpassing
+Je kan de applicatie aanpassen en daarbij 
 
 
 ## Opruimen
