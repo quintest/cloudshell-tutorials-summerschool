@@ -4,7 +4,12 @@
 
 **Duur van de oefening**: ongeveer 15 minuten
 
-Om te beginnen zetten we eerst alle instellingen die noodzakelijk zijn op.
+Doel van deze demo is om te laten zien hoe je een simpele web-applicatie als:
+- een container uitrolt op een Kubernetes orchestration platform, 
+- hoe je de applicatie schaalt en 
+- hoe je een nieuwe versie uitrolt van de applicatie.
+
+Om te beginnen zet je eerst alle instellingen die noodzakelijk zijn op.
 
 Deze tutorial gaat uit van het project quint-demo, mocht je deze tutorial 
 onafhankelijk van de training volgen, selecteer dan een eigen project.
@@ -32,56 +37,67 @@ gcloud components install kubectl
 
 ## Kubernetes Cluster Bouwen
 We geven middels gcloud de opdracht om een GKE container cluster te bouwen bestaande 
-twee nodes. In de training setting van Summerschool heb je geen rechten om dit te bouwen, deze stap staat in de tutorial wanneer je dit wil bouwen in je eigen Google Cloud omgeving. 
+drie nodes. In de training setting van Summerschool heb je geen rechten om dit te bouwen, deze stap staat in de tutorial wanneer je dit wil bouwen in je eigen Google Cloud omgeving. 
 We noemen het cluster het persistent-disk-tutorial cluster.
+**Sla voor de training deze stap over, het cluster is al gebouwd!**
 ```bash  
 gcloud container clusters create quint-kube-orchestration --num-nodes=3
 ```
 Dit kan een paar minuten duren....
 
 ## Verbinden met bestaand cluster
-Als eerste zorg je met onderstaand commndo ervoor dat je geautoriseerd bent om
+Als eerste zorg je met onderstaande opdracht ervoor dat je geautoriseerd bent om
 met het cluster te werken.
 
 ```bash
 gcloud container clusters get-credentials quint-kube-orchestration
 ```
 
-## Aanmaken persistent storage
+## Docker Container aanmaken
 Zodra dit is gelukt, kan je naar folder met configuratie bestanden navigeren:
 ```bash
 cd ~/cloudshell-tutorials-summerschool/orchestration
 ```
-En daarna op je door onderstaande link te klikken het configuratie bestand voor het aanmaken van een schijf voor de databse container.
+En daarna op je door onderstaande link te klikken het configuratie bestand voor het aanmaken van de webserver:
 
-<walkthrough-editor-open-file filePath="cloudshell-tutorials-summerschool/orchestration/mysql-volumeclaim.yaml" text="Open configuratie bestand mysql-volumeclaim.yaml">
+<walkthrough-editor-open-file filePath="cloudshell-tutorials-summerschool/orchestration/manifests/helloweb-deployment.yaml" text="Open configuratie bestand helloweb-deployment.yaml.yaml">
 </walkthrough-editor-open-file>
 
-Deze Yaml file beschrijft een zogenaamde claim op een harde schijf van 200GB die aangemaakt wordt op basis van de opgegeven naam. Deze schijf wordt gebruikt voor de 
-MySQL database en door deze buiten de container aan te maken van MySQL zelf, is de data veilig en beschikbaar bij uitzetten, vervangen of verwijderen van
-de container.
-Met het onderstaande commando maak je deze claim aan.
-
+In de console van Google heb je de beschikking over Docker. Docker pakt automatisch een bestand in de folder als input voor
+het bouwen van de container:
 ```bash
-kubectl apply -f mysql-volumeclaim.yaml
+docker build -t eu.gcr.io/${PROJECT_ID}/hello-app:v1 .
+```
+De Docker installatie in je console moet nog wel rechten krijgen binnen de cloud omgeving:
+```bash
+gcloud auth configure-docker
 ```
 
-Ditzelfde doen we ook voor de Wordpress applicatie server schijf:
+
+Om de container te publiceren in de centrale opslag voor containers (de zgn Registry), gebruik je onderstaand commando,
+**Sla deze stap over tijdens de training!**
 ```bash
-kubectl apply -f wordpress-volumeclaim.yaml
+docker push eu.gcr.io/${PROJECT_ID}/hello-app:v1
 ```
 
-Controlleer of je de schijven bestaan:
+Hierna voer je onderstaand commando uit vervang 'markus' door je eigen naam: 
 ```bash
-kubectl get pvc
+kubectl create deployment markus --image=eu.gcr.io/${PROJECT_ID}/hello-app:v1```
+```
+Hier maak je LoadBalancer aan, vervang ook hier weer 'markus' door je eigen naam:
+```bash
+kubectl expose deployment markus --type=LoadBalancer --port 80 --target-port 8080
+```
+En om uiteindelijk te connecten controlleer je het EXTERNAL-IP door onderstaand commando meerdere keren uit te voeren
+tot er een IP adres staat, dit adres copieër je in je browser:
+```bash
+kubectl get service
 ```
 
-## Deployement van MySQL Container
 
-```bash
-kubectl create secret generic mysql --from-literal=password=YOUR_PASSWORD
-```
-Door op onderstaande link te klikken open je het zogenaamde manifest bestand van de MySQL container. 
+## Deployement verhogen
+
+`Door op onderstaande link te klikken open je het zogenaamde manifest bestand van de container webapplicatie aanpassen. 
 
 <walkthrough-editor-open-file filePath="cloudshell-tutorials-summerschool/orchestration/mysql.yaml" text="Open configuratie bestand mysql.yaml">
 </walkthrough-editor-open-file>
@@ -100,16 +116,6 @@ Om gebruik te kunnen maken van de MySQL server, zal deze als Service gepubliceer
 ```bash
 kubectl create -f mysql-service.yaml
 ```
-
-## Wordpress Container Aanmaken
-Ook hier starten we met het aanmaken van de container
-```bash
-kubectl create -f wordpress.yaml
-```
-
-**LET OP**: hierna wordt het echter anders. De Wordpress Service ga je namelijk op Internet publiceren. Hierbij maak je gebruik van de 
-LoadBalancer service van Google. Je Wordpress container is op moment van publicatie beschikbaar voor iedereen die het IP adres heeft. 
-Het is dus belangrijk om de volgende handelingen achter elkaar uit te voeren en hier niet een paar uur tussen te laten zitten.
 
 ```bash
 kubectl create -f wordpress-service.yaml
