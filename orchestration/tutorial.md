@@ -50,8 +50,14 @@ This 'public' location will be used to get the web content by the webserver call
 
 
 ## Creating the Docker image
-To build the image
-
+To build the image you'll issue the following command:
+```bash
+docker build -f Dockerfile -t website:v1 .
+```
+As mentioned in the previous step this will download the ngnix image and copy the floder public into the container.
+To see what you'll be publishing click the file open:
+walkthrough-editor-open-file filePath="cloudshell-tutorials-summerschool/orchestration/public/index.html" text="Open index.html">
+</walkthrough-editor-open-file>
 
 
 ## Run the container
