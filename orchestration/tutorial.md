@@ -56,7 +56,7 @@ docker build -f Dockerfile -t website:v1 .
 ```
 As mentioned in the previous step this will download the ngnix image and copy the floder public into the container.
 To see what you'll be publishing click the file open:
-walkthrough-editor-open-file filePath="cloudshell-tutorials-summerschool/orchestration/public/index.html" text="Open index.html">
+<walkthrough-editor-open-file filePath="cloudshell-tutorials-summerschool/orchestration/public/index.html" text="Open index.html">
 </walkthrough-editor-open-file>
 
 
@@ -74,12 +74,14 @@ This will give you an overview of the running containers. When looking at the PO
 '0.0.0.0:8080->80/tcp'
 
 ### View the website
-Next you preview the website which is running on the container. Click on the Web preview button at the top right of your console which looks something like this "[<>]" and select "Preview on port 8080".
-
-<walkthrough-spotlight-pointer spotlightId="devshell-web-preview-button">spotlight on the web preview icon</walkthrough-spotlight-pointer>
-
+Next you preview the website which is running on the container. Click on the Web preview button at the top right of your console <walkthrough-spotlight-pointer spotlightId="devshell-web-preview-button">spotlight on the web preview icon</walkthrough-spotlight-pointer>, click on the button and select "Preview on port 8080".
 
 It will open up a new tab in your browser and will show you the content of the website, running in your very own container. 
+
+## Pause for Instruction on Orchestration
+
+**Please wait for instructions before you proceed!** 
+
 
 ## Opzetten Kubectl
 Kubectl is de controller van Kubernetes, met deze controller kan je via de API van 
