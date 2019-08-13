@@ -74,7 +74,16 @@ This will give you an overview of the running containers. When looking at the PO
 '0.0.0.0:8080->80/tcp'
 
 ### View the website
-Next you preview the website which is running on the container. Click on the Web preview button at the top right of your console which looks something like this "[<>]" and select "Preview on port 8080". It will open up a new tab in your browser and will show you the content of the website, running in your very own container. 
+Next you preview the website which is running on the container. Click on the Web preview button at the top right of your console which looks something like this "[<>]" and select "Preview on port 8080". 
+
+```
+<walkthrough-spotlight-pointer
+    spotlightId="devshell-web-preview-button">
+    spotlight on the web preview icon
+</walkthrough-spotlight-pointer>
+```
+
+It will open up a new tab in your browser and will show you the content of the website, running in your very own container. 
 
 ## Opzetten Kubectl
 Kubectl is de controller van Kubernetes, met deze controller kan je via de API van 
