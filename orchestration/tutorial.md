@@ -23,7 +23,7 @@ Select the correct zone:
 ```bash
 gcloud config set compute/zone europe-west4-b
 ```  
-
+## Switch folder
 Switch to the correct folder by:
 ```bash
 cd ~/cloudshell-tutorials-summerschool/orchestration
@@ -32,7 +32,7 @@ cd ~/cloudshell-tutorials-summerschool/orchestration
 Press **ENTER**
 
 
-# Docker Tutorial
+## Docker Tutorial
 You'll start this exercise by testing if Docker is installed in your shell by cpying the following command to your cloudshell and press **ENTER**:
 ```bash
 docker version
@@ -44,7 +44,9 @@ First you'll check the content of the Dockerfile, which describes the container 
 <walkthrough-editor-open-file filePath="cloudshell-tutorials-summerschool/orchestration/Dockerfile" text="Open Dockerfile">
 </walkthrough-editor-open-file>
 
-You see two lines of configuration, one describing which base image you'll use for this build and one line which tells Docker to copy the contents of your public folder into a location in your container. This location will be used to get the web content by the webserver called Nginx, which is presently the most used webserver on the Internet.
+You see two lines of configuration, one describing which base image you'll use for this build and one line which tells Docker to copy the contents of your public folder into a location in your container. 
+
+This 'public' location will be used to get the web content by the webserver called Nginx, which is presently the most used webserver on the Internet.
 
 
 ## Creating the Docker image
