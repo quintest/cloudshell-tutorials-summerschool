@@ -24,17 +24,22 @@ Select the correct zone:
 gcloud config set compute/zone europe-west4-b
 ```  
 
+Switch to the correct folder by:
+```bash
+cd ~/cloudshell-tutorials-summerschool/orchestration
+```
+
 Press **ENTER**
 
 
-## Docker Tutorial
+# Docker Tutorial
 You'll start this exercise by testing if Docker is installed in your shell by cpying the following command to your cloudshell and press **ENTER**:
 ```bash
 docker version
 ```
 This shows you the version of the client engine and the version of the server engine, sometimes they can be different, but this should not cause any issues for this tutorial.
 
-### The Dockerfile
+## The Dockerfile
 First you'll check the content of the Dockerfile, which describes the container you'll be building:
 <walkthrough-editor-open-file filePath="cloudshell-tutorials-summerschool/orchestration/Dockerfile" text="Open Dockerfile">
 </walkthrough-editor-open-file>
