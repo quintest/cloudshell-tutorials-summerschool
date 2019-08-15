@@ -17,7 +17,7 @@ echo "Hello Quint Summerschool"
 ```
 Hierbij wordt de tekst naar je shell gekopieerd en kan je door **Enter** te drukken het commando uitvoeren. Daarbij wordt de tekst tussen de aanhalingstekens op de regel eronder getoond.
 
-Klik op **Next** of **Volgende** om verder te gaan, hierna kan je via de navigatie buttons onderaan vooruit of terug in de tutorial.
+Klik op **Start** om verder te gaan, hierna kan je via de navigatie buttons onderaan vooruit of terug in de tutorial.
 
 
 ## De Cloud Shell
@@ -107,8 +107,7 @@ Om dit nogmaals te controleren voer je het volgende commando uit:
 echo $MY_NAME
 ```
 
-Om op basis van de configuratie een deployment uit te voeren type je het volgende in de cloudshell.
-Eerst moet je zorgen dat je op de juiste plek staat in de folder structuur:
+Eerst moet je nog zorgen dat je op de juiste plek staat in de folder structuur:
 ```bash
 cd ~/cloudshell-tutorials-summerschool/provisioning
 ```
