@@ -77,7 +77,7 @@ In deze tutorial gebruik je:
 + Machine type: `g1-micro`
 + Image family: `debian-9`
 + Root persistent disk: `boot`
-+         - van 250GB groot
++         van 250GB groot
 + Een random gekozen intern IP address
 
 Verder maken we gebruik van een script om machines te voorzien van de juiste software, in ons geval is dat Nginx, één van de meest gebruikte webservers in de wereld. Dit script kan je hier bekijken:
