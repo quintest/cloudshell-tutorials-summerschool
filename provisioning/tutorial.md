@@ -49,56 +49,48 @@ gcloud config set compute/zone europe-west4-a
 
 **ENTER**
 
-Antwoord zal zijn dat de compute/zone zijn geupdate, klik **Next** of **Volgende** om verder te gaan.
+Antwoord zal zijn dat de compute/zone zijn geupdate. Als volgende zetten we een systeem variabele zodat je telkens de juiste naam gebruikt. Vervang jevoornaam door je eigen voornaam.
+
+**Zorg ervoor dat je ALLEEN KLEINE LETTERS gebruikt, geen spaties of leestekens!**
+
+```bash
+export MY_NAME=jevoornaam
+```
+
+klik **Next** of **Volgende** om verder te gaan.
 
 ## Configuratie management
-**Deployment Manager**  werkt op basis van configuratie bestanden en optioneel templates.
+**gcloud en templates**  werkt op basis van configuratie commando's, configuratie bestanden en templates.
 De tool zet configuratie bestanden in om de juiste instellingen een omgeving op te zetten, met daarin bijvoorbeeld de virtuele machine.
 Klik op de instructie om het bestand te openen in de Editor:
 
-<walkthrough-editor-open-file filePath="cloudshell-tutorials-summerschool/provisioning/vm.yaml" text="Open configuratie bestand">
+<walkthrough-editor-open-file filePath="cloudshell-tutorials-summerschool/provisioning/example-template-custom" text="Open template bestand">
 </walkthrough-editor-open-file>
 
-Het bestand opent zich in de editor. Allereerst een waarschuwing vooraf, **PAS NOG NIETS AAN**, 
-aangezien het bestandsformaat erg gevoelig is voor spatie- en tab-indeling. Kijk eerst even naar het bestand.
+Het bestand opent zich in de editor.
 
-### Structuur van het config bestanden
-Het deployment bestand is ingedeeld volgens de sturctuur, welke je terug ziet in het geopende document: 
-- **Resource**: dit is de plek waar resources beschreven worden, dit zijn resources die 
-binnen de Google Cloud beschikbaar zijn
-- **Type**: binnen een resource beschrijving kan je meerdere type resources inzetten zoals vm's, 
-netwerk componenten
-- **Name**: verplicht voor elke resource, een unieke naam
-- **Properties**: de eigenschappen van de te deployen resources
+### Gebruik en opbouw van templates
+Templates worden gebruikt om zogenaamde instances van virtuele machines (servers) te beschrijven. Elke cloud provider heeft hier een eigen manier voor die sterk afhankelijk is van het type resource welke je wil beschrijven en het type van resources waarvan je gbruik wil maken. 
 
-De geopende configuratie beschrijft in dit geval dat we een virtuele machine instantie met de volgende eigenschappen willen laten starten:
+In deze tutorial gebruik je:
 
-+ Machine type: `f1-micro`
++ Machine type: `g1-micro`
 + Image family: `debian-9`
-+ Zone: `europe-west4-a`
 + Root persistent disk: `boot`
-+ Een random gekozen intern en extern IP address
++         - van 250GB groot
++ Een random gekozen intern IP address
+
+Verder maken we gebruik van een script om machines te voorzien van de juiste software, in ons geval is dat Nginx, één van de meest gebruikte webservers in de wereld. Dit script kan je hier bekijken:
+
+<walkthrough-editor-open-file filePath="cloudshell-tutorials-summerschool/provisioning/startup-script.sh" text="Open startup-script.sh bestand">
+</walkthrough-editor-open-file>
 
 Klik **Next** of **Volgende** om verder te gaan.
 
-## Configuratie Aanpassen
-Om ervoor te zorgen dat je niet dezelfde omgeving neerzet als je mede-cursisten, is er één veld dat je moet aanpassen.
-In het bestand zoek je `name` op en vervang je `MY_NAME` door je voornaam. 
-
-**LET OP: GEBRUIK ALLEEN KLEINE LETTERS EN GEEN ANDERE TEKENS!**
-
-Mocht je voornaam dus Markus zijn dan krijg je:
-
-```yaml
-  # Vul je voornaam waar MY_NAME staat, 
-  # gebruik alleen kleine letters!
-  name: markus
-```
-Om de verandering op te slaan klik je op het **File** menu, klik **Save**.
-
-Klik **Next** of **Volgende** om verder te gaan.
 
 ## Provisioning
+Om ervoor te zorgen dat je niet dezelfde omgeving neerzet als je mede-cursisten, heeft iedereen als het goed is een andere MY_NAME variabele gekozen.
+
 Om op basis van de configuratie een deployment uit te voeren type je het volgende in de cloudshell.
 Eerst moet je zorgen dat je op de juiste plek staat in de folder structuur:
 ```bash
@@ -107,10 +99,16 @@ cd ~/cloudshell-tutorials-summerschool/provisioning
 
 **ENTER** 
 
-Hierna voer je de deployment uit, vervang hierbij `[MY_NAME]` door je eigen voornaam, alleen kleine letters, net als bij de vorige opdracht, dus ook **geen rechte haken** om je naam.
+Hierna voer je de deployment uit:
 
 ```bash
-gcloud deployment-manager deployments create [MY_NAME] --config vm.yaml
+gcloud compute instances create $MY_NAME --source-instance-template example-template-custom-1 --network-interface=no-address --metadata-from-file startup-script=startup-script.sh
+```
+
+Hiermee wordt je machine aangemaakt, met jouw unieke naam. Zodra de machine klaar is zet je deze in een pool van machines die een website laten zien.
+
+```bash
+gcloud compute instance-groups unmanaged add-instances instance-group-1 --instances $MY_NAME --zone europe-west4-a
 ```
 
 **ENTER**
@@ -120,30 +118,13 @@ Hierna zal het even duren voor je de melding krijgt completed successfully, of e
 Invalid value for field 'resource.name': '[MY_NAME]'
 ```
 
-Om te controleren of je deployment succesvol was, kan je het volgende commando uitvoeren om een overzicht van alle deployments te zien:
-```bash
-gcloud deployment-manager deployments list
-```
-
-**ENTER**
-
-Hierbij zie je alle Deployments, dus ook die van je collega's, als je meer informatie wil zien over je eigen deployment 
-type dan het volgende (vervang weer met je voornaam, kleine letters):
-```bash
-gcloud deployment-manager deployments describe [MY_NAME]
-```
-
-**ENTER**
-
-Klik **Next** of **Volgende** om verder te gaan.
-
 ## De-Provisioning
-Nadat in de groep het resultaat bekeken is van alle machines kan je jouw deployment verwijderen, volg hiervoor onderstaande instructie.
+Nadat in de groep het resultaat bekeken is van alle machines kan je jouw machine verwijderen, volg hiervoor onderstaande instructie.
 
 ### Opruimen
 Om alles uiteindelijk weer netjes op te ruimen voer je volgende uit, weer met je eigen voornaam: 
 ```bash
-gcloud deployment-manager deployments delete [MY_NAME]
+gcloud compute instance delete $MY_NAME
 ```
 **ENTER**
 
