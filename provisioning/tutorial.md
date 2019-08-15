@@ -19,6 +19,7 @@ Hierbij wordt de tekst naar je shell gekopieerd en kan je door **Enter** te druk
 
 Klik op **Next** of **Volgende** om verder te gaan, hierna kan je via de navigatie buttons onderaan vooruit of terug in de tutorial.
 
+
 ## De Cloud Shell
 Allereerst maak je kennis met de cloudshell, dit is het zwarte horizontale venster links onderaan het scherm. 
 Dit is de command-prompt die je van Google krijgt als je handelingen niet via het menu (klik) maar op basis van tekst invoer wil uitvoeren.
@@ -26,9 +27,10 @@ Dit is de command-prompt die je van Google krijgt als je handelingen niet via he
 ### De Cloud editor
 Boven de cloudshell staat een groot vlak met aan de zijkant een folder structuur, dit is de cloud-shell-editor. 
 Deze editor maakt het eenvoudiger om tekst bestanden aan te maken en aan te passen. 
-Je zal deze editor verderop in de tutorial inzetten om configuratie bestanden mee aan te passen.
+Je zal deze editor verderop in de tutorial inzetten om configuratie bestanden mee te bekijken.
 
 Klik **Next** of **Volgende** om verder te gaan.
+
 
 ## Cloudshell koppelen aan Quint-demo project 
 Als eerste stel je de juiste project omgeving in, zodat de virtuele machines die je gaat aanmaken in de juiste omgeving staan. 
@@ -49,7 +51,12 @@ gcloud config set compute/zone europe-west4-a
 
 **ENTER**
 
-Antwoord zal zijn dat de compute/zone zijn geupdate. Als volgende zetten we een systeem variabele zodat je telkens de juiste naam gebruikt. Vervang jevoornaam door je eigen voornaam.
+Antwoord zal zijn dat de compute/zone zijn geupdate. 
+
+Klik **Next** of **Volgende** om verder te gaan.
+
+## Naam variabele instellen
+Als volgende zetten we een systeem variabele zodat je telkens de juiste naam gebruikt. Vervang **jevoornaam** door je eigen voornaam.
 
 **Zorg ervoor dat je ALLEEN KLEINE LETTERS gebruikt, geen spaties of leestekens!**
 
@@ -60,27 +67,31 @@ export MY_NAME=jevoornaam
 klik **Next** of **Volgende** om verder te gaan.
 
 ## Configuratie management
-**gcloud en templates**  werkt op basis van configuratie commando's, configuratie bestanden en templates.
-De tool zet configuratie bestanden in om de juiste instellingen een omgeving op te zetten, met daarin bijvoorbeeld de virtuele machine.
+Bij Google (en de meeste andere cloud providers) werkt configuratie management op basis van configuratie commando's vanaf een CLI, API, op basis van configuratie bestanden en/of templates.
+De tool gcloud gebruik je meestal vanaf de CLI in, om met de juiste instellingen een resource aan te maken, configureren of verwijderen. Resources zijn er in verschillende typen, jij gaat vandaag de resources gebruiken in compute engine, de zogenaamde virtuele machines.
+
+klik **Next** of **Volgende** om verder te gaan.
+
+## Template
+Je maakt gebruik van een eerder aangemaakt template bestand, waarin een aantal zaken beschreven staan die voor elke machine gelden die op basis van dit template wordt aangemaakt.
+
 Klik op de instructie om het bestand te openen in de Editor:
 
 <walkthrough-editor-open-file filePath="cloudshell-tutorials-summerschool/provisioning/example-template-custom" text="Open template bestand">
 </walkthrough-editor-open-file>
 
-Het bestand opent zich in de editor.
-
 ### Gebruik en opbouw van templates
-Templates worden gebruikt om zogenaamde instances van virtuele machines (servers) te beschrijven. Elke cloud provider heeft hier een eigen manier voor die sterk afhankelijk is van het type resource welke je wil beschrijven en het type van resources waarvan je gbruik wil maken. 
+Templates worden gebruikt om zogenaamde instances van virtuele machines (servers) te beschrijven. Elke cloud provider heeft hier een eigen manier voor die sterk afhankelijk is van het type resource welke je wil beschrijven en het type van resources waarvan je vanuit de instance gebruik wil maken. 
 
 In deze tutorial gebruik je:
 
 + Machine type: `g1-micro`
 + Image family: `debian-9`
 + Root persistent disk: `boot`
-+         van 250GB groot
++ van 250GB groot
 + Een random gekozen intern IP address
 
-Verder maken we gebruik van een script om machines te voorzien van de juiste software, in ons geval is dat Nginx, één van de meest gebruikte webservers in de wereld. Dit script kan je hier bekijken:
+Verder maak je gebruik van een script om machines te voorzien van de juiste software, in dit geval is dat Nginx, één van de meest gebruikte webservers van de afgelopen jaren. Dit script kan je hier bekijken:
 
 <walkthrough-editor-open-file filePath="cloudshell-tutorials-summerschool/provisioning/startup-script.sh" text="Open startup-script.sh bestand">
 </walkthrough-editor-open-file>
@@ -91,6 +102,11 @@ Klik **Next** of **Volgende** om verder te gaan.
 ## Provisioning
 Om ervoor te zorgen dat je niet dezelfde omgeving neerzet als je mede-cursisten, heeft iedereen als het goed is een andere MY_NAME variabele gekozen.
 
+Om dit nogmaals te controleren voer je het volgende commando uit:
+```bash
+echo $MY_NAME
+```
+
 Om op basis van de configuratie een deployment uit te voeren type je het volgende in de cloudshell.
 Eerst moet je zorgen dat je op de juiste plek staat in de folder structuur:
 ```bash
@@ -100,12 +116,16 @@ cd ~/cloudshell-tutorials-summerschool/provisioning
 **ENTER** 
 
 Hierna voer je de deployment uit:
-
 ```bash
 gcloud compute instances create $MY_NAME --source-instance-template example-template-custom-1 --network-interface=no-address --metadata-from-file startup-script=startup-script.sh
 ```
 
-Hiermee wordt je machine aangemaakt, met jouw unieke naam. Zodra de machine klaar is zet je deze in een pool van machines die een website laten zien.
+Hiermee wordt je machine aangemaakt, met jouw unieke naam. 
+
+Klik **Next** of **Volgende** om verder te gaan.
+
+## Publiceren van je machine
+Zodra de machine klaar is zet je deze in een pool van machines die een website laten zien.
 
 ```bash
 gcloud compute instance-groups unmanaged add-instances instance-group-1 --instances $MY_NAME --zone europe-west4-a
@@ -113,18 +133,20 @@ gcloud compute instance-groups unmanaged add-instances instance-group-1 --instan
 
 **ENTER**
 
-Hierna zal het even duren voor je de melding krijgt completed successfully, of een ERROR. Als je een ERROR krijgt met daarin o.a. de volgende tekst, kijk dan nog even goed naar de vorige opdracht hierboven:
-```
-Invalid value for field 'resource.name': '[MY_NAME]'
-```
+Om te testen of je machine in de load van de load balancer opgenomen is, ga je naar de website:
+[http://provisioning.demo.qlabz.nl/](http://provisioning.demo.qlabz.nl/)
 
-## De-Provisioning
+Ververs de website meerdere keren en als het goed is verschijnt dan ook jouw naam. Wacht met de volgende stap tot dit is aangegeven.
+
+Klik **Next** of **Volgende** om verder te gaan.
+
+## De De-Provisioning
 Nadat in de groep het resultaat bekeken is van alle machines kan je jouw machine verwijderen, volg hiervoor onderstaande instructie.
 
 ### Opruimen
 Om alles uiteindelijk weer netjes op te ruimen voer je volgende uit, weer met je eigen voornaam: 
 ```bash
-gcloud compute instance delete $MY_NAME
+gcloud compute instances delete $MY_NAME
 ```
 **ENTER**
 
