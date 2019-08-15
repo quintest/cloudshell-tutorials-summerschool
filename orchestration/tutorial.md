@@ -1,4 +1,4 @@
-# Lesson 3 Container Orchstration
+# Lesson 3 Containers
 <walkthrough-directive-name name="Markus Keuter">
 </walkthrough-directive-name>
 
@@ -7,11 +7,7 @@
 Goal of this demo is to publish a simpel web-application by:
 - Building a container image,
 - Run the container with Docker in the cloudshell,
-- Connect to the preview,
-- deploying it on a Kubernetes orchestration platform, 
-- demonstrate how it scales, 
-- demonstrate how to create a new version of your container afstand
-- demonstrate how to deploy it in a green/blue deployment scenario.
+- Connect to the preview.
 
 To get started click on the shell icon [>_] to copy the text to your shell and press **ENTER**:
 ```bash
@@ -78,6 +74,7 @@ Next you preview the website which is running on the container. Click on the Web
 
 It will open up a new tab in your browser and will show you the content of the website, running in your very own container. 
 
-## Pause for Instruction on Orchestration
+## End
+<walkthrough-conclusion-trophy></walkthrough-conclusion-trophy>
 
-**Please wait for instructions before you proceed!** 
+This the end of this exercise, thank you for joining us!
